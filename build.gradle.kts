@@ -11,8 +11,8 @@ plugins {
     id("com.gradle.plugin-publish") version "1.0.0"
 }
 
-group = "com.github.kotlin_di"
-version = "0.0.4"
+group = "io.github.Kotlin-DI"
+version = "0.0.1"
 
 repositories {
     gradlePluginPortal()
@@ -110,7 +110,7 @@ publishing {
 }
 
 pluginBundle {
-    website = "https://github.com/Kotlin-DI"
+    website = "https://Kotlin-DI.github.io"
     vcsUrl = "https://github.com/Kotlin-DI/gradle-plugin.git"
     tags = listOf("dependency-injection", "annotation-processing")
 }
@@ -120,13 +120,13 @@ gradlePlugin {
     plugins {
 
         findByName("com.github.kotlin_di.subplugin")?.apply {
-            id = "com.github.Kotlin-DI.subplugin"
+            id = "io.github.Kotlin-DI.subplugin"
             displayName = "Kotlin DI subplugin"
             description = "pre-compiled plugin"
         }
 
         create("plugin") {
-            id = "com.github.Kotlin-DI.plugin"
+            id = "io.github.Kotlin-DI.plugin"
             displayName = "Kotlin DI plugin"
             description = "Applies all of the required libraries"
             implementationClass = "com.github.kotlin_di.gradle_plugin.DependencyPlugin"
