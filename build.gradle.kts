@@ -12,7 +12,7 @@ plugins {
 }
 
 group = "io.github.Kotlin-DI"
-version = "0.0.1"
+version = "0.0.2"
 
 repositories {
     gradlePluginPortal()

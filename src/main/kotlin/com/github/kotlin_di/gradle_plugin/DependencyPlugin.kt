@@ -11,7 +11,7 @@ open class DependencyPlugin : Plugin<Project> {
             imports
         )
 
-        project.plugins.apply("com.github.Kotlin-DI.subplugin")
+        project.plugins.apply("io.github.Kotlin-DI.subplugin")
         project.dependencies.extensions.add(
             ImportDependency::class.java,
             "import",
