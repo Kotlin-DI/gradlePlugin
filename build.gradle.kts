@@ -11,8 +11,8 @@ plugins {
     id("com.gradle.plugin-publish") version "1.0.0"
 }
 
-group = "com.kotlin_di"
-version = "0.0.3"
+group = "com.github.kotlin_di"
+version = "0.0.4"
 
 repositories {
     gradlePluginPortal()
@@ -27,8 +27,8 @@ val kotlinVersion: String by project
 val kspVersion: String by project
 
 dependencies {
-    implementation("com.github.Kotlin-DI:common:0.0.1")
-    implementation("com.github.Kotlin-DI:ioc:0.0.1")
+    implementation("com.github.Kotlin-DI:common:0.0.3")
+    implementation("com.github.Kotlin-DI:ioc:0.0.3")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     implementation("com.google.devtools.ksp:symbol-processing-gradle-plugin:$kotlinVersion-$kspVersion")
     implementation("org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion")
@@ -119,17 +119,17 @@ gradlePlugin {
 
     plugins {
 
-        findByName("com.kotlin_di.subplugin")?.apply {
-            id = "com.kotlin_di.subplugin"
+        findByName("com.github.kotlin_di.subplugin")?.apply {
+            id = "com.github.Kotlin-DI.subplugin"
             displayName = "Kotlin DI subplugin"
             description = "pre-compiled plugin"
         }
 
         create("plugin") {
-            id = "com.kotlin_di.plugin"
+            id = "com.github.Kotlin-DI.plugin"
             displayName = "Kotlin DI plugin"
             description = "Applies all of the required libraries"
-            implementationClass = "com.kotlin_di.gradle_plugin.DependencyPlugin"
+            implementationClass = "com.github.kotlin_di.gradle_plugin.DependencyPlugin"
         }
     }
 }

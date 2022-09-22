@@ -1,7 +1,10 @@
-package com.kotlin_di
+package com.github.kotlin_di
 
-Plugin<Project> {
-}
+import gradle.kotlin.dsl.accessors._8ccd1c8fde1157b819601e1727ca89f0.*
+import gradle.kotlin.dsl.accessors._8ccd1c8fde1157b819601e1727ca89f0.kotlin
+import org.gradle.kotlin.dsl.*
+
+println("subplugin loaded")
 
 plugins {
     kotlin("jvm")
@@ -77,5 +80,5 @@ repositories {
 
 dependencies {
     implementation(kotlin("reflect"))
-    ksp("com.github.Kotlin-DI:annotation-processor:0.0.1")
+    ksp("com.github.Kotlin-DI:annotation-processor:0.0.3")
 }

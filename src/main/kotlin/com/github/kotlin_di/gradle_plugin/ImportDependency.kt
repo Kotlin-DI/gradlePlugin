@@ -1,4 +1,4 @@
-package com.kotlin_di.gradle_plugin
+package com.github.kotlin_di.gradle_plugin
 
 import org.gradle.api.artifacts.Dependency
 

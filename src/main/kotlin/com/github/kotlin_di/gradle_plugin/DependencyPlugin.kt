@@ -1,4 +1,4 @@
-package com.kotlin_di.gradle_plugin
+package com.github.kotlin_di.gradle_plugin
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -11,7 +11,7 @@ open class DependencyPlugin : Plugin<Project> {
             imports
         )
 
-        project.plugins.apply("com.kotlin_di.subplugin")
+        project.plugins.apply("com.github.Kotlin-DI.subplugin")
         project.dependencies.extensions.add(
             ImportDependency::class.java,
             "import",
