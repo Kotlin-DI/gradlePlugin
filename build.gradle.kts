@@ -27,8 +27,8 @@ val kotlinVersion: String by project
 val kspVersion: String by project
 
 dependencies {
-    implementation("com.github.Kotlin-DI:common:0.0.3")
-    implementation("com.github.Kotlin-DI:ioc:0.0.3")
+    implementation("com.github.kotlin_di:common:main-SNAPSHOT")
+    implementation("com.github.kotlin_di:ioc:main-SNAPSHOT")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     implementation("com.google.devtools.ksp:symbol-processing-gradle-plugin:$kotlinVersion-$kspVersion")
     implementation("org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion")

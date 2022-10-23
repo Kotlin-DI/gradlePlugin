@@ -47,9 +47,11 @@ tasks {
     }
 }
 
-ksp {
-    arg("project.group", "${project.group}")
-    arg("project.name", project.name)
+afterEvaluate {
+    ksp {
+        arg("project.group", "${project.group}")
+        arg("project.name", project.name)
+    }
 }
 
 kotlin {
@@ -80,5 +82,6 @@ repositories {
 
 dependencies {
     implementation(kotlin("reflect"))
-    ksp("com.github.Kotlin-DI:annotation-processor:0.0.3")
+//    ksp("com.github.Kotlin-DI:annotation-processor:0.0.4")
+    ksp("com.github.kotlin_di:annotation-processor:main-SNAPSHOT")
 }
