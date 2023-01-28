@@ -8,4 +8,10 @@ pluginManagement {
         mavenLocal()
         gradlePluginPortal()
     }
+
+    val kotlinVersion: String by settings
+    plugins {
+        kotlin("jvm") version kotlinVersion
+//        id("org.gradle.kotlin.kotlin-dsl") version "4.0.2"
+    }
 }
