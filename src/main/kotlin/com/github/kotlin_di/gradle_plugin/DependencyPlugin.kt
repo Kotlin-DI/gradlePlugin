@@ -12,7 +12,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 
 open class DependencyPlugin : Plugin<Project> {
 
-    val commonVersion: String = "0.1.4"
+    private val commonVersion: String = "0.1.4"
 
     private val imports = mutableListOf<String>()
     private val includes = mutableListOf<Dependency>()
@@ -23,57 +23,18 @@ open class DependencyPlugin : Plugin<Project> {
         )
 
         project.plugins.apply("com.google.devtools.ksp")
-        project.dependencies.add("implementation", "com.github.Kotlin-DI:common:$commonVersion")
-        project.dependencies.add("ksp", "com.github.kotlin_di:annotation-processor:main-SNAPSHOT")
-
-//        val include = project.configurations.create("include")
+        project.dependencies.add("implementation", "com.github.kotlin_di:common:develop-SNAPSHOT")
+        project.dependencies.add("ksp", "com.github.kotlin_di:annotation-processor:develop-SNAPSHOT")
 
         project.extensions.extraProperties.set(
             "imports",
             imports
         )
 
-        val jar = project.tasks.findByName("jar")
-
-        (jar as Jar).apply {
-            manifest.attributes(
-                mapOf(
-                    "Implementation-Title" to "${project.group}.${project.name}",
-                    "Implementation-Version" to project.version,
-                    "Dependencies" to (imports).fold("") { acc, s ->
-                        "$acc$s;"
-                    },
-                    "Main-Class" to "${project.group}.generated.${project.name}",
-                )
-            )
-            duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-//            from(
-//                include.map {
-//                    if (it.isDirectory) it else project.zipTree(it)
-//                }
-//            )
-        }
-
-        project.afterEvaluate {
-            println("after eval")
-            ((it as ExtensionAware).extensions.getByName("ksp") as KspExtension).apply {
-                arg("project.group", "${it.group}")
-                arg("project.name", "${it.name}")
-                arg("project.version", "${it.version}")
-                arg("keysFile", config.keysFile.orNull ?: "Keys")
-                arg("pluginFile", config.pluginFile.orNull ?: "Plugin")
-            }
-        }
-
         project.dependencies.extensions.add(
             DependsOnExtension::class.java,
             "dependsOn",
             DependsOnExtension(imports)
-        )
-        project.dependencies.extensions.add(
-            IncludeExtension::class.java,
-            "include",
-            IncludeExtension(project.configurations)
         )
 
         ((project as ExtensionAware).extensions.getByName("kotlin") as KotlinJvmProjectExtension).apply {
@@ -92,6 +53,49 @@ open class DependencyPlugin : Plugin<Project> {
             }
             getByName("test") {
                 it.java.srcDir("build/generated/ksp/test/kotlin")
+            }
+        }
+
+        val include = project.configurations.create("includeClasspath") {
+            it.isCanBeResolved = true
+            it.isCanBeConsumed = false
+        }
+        project.dependencies.extensions.add(
+            IncludeExtension::class.java,
+            "include",
+            IncludeExtension(include)
+        )
+
+        project.afterEvaluate {
+            val keysFile = config.keysFile.orNull ?: "Keys"
+            val pluginFile = config.pluginFile.orNull ?: "Plugin"
+            ((it as ExtensionAware).extensions.getByName("ksp") as KspExtension).apply {
+                arg("project.group", "${it.group}")
+                arg("project.name", it.name)
+                arg("project.version", "${it.version}")
+                arg("keysFile", keysFile)
+                arg("pluginFile", pluginFile)
+            }
+
+            val includes = it.configurations.getByName("includeClasspath")
+            val jar = it.tasks.findByName("jar")
+            (jar as Jar).apply {
+                manifest.attributes(
+                    mapOf(
+                        "Implementation-Title" to "${it.group}.${it.name}",
+                        "Implementation-Version" to it.version,
+                        "Dependencies" to (imports).fold("") { acc, s ->
+                            "$acc$s;"
+                        },
+                        "Main-Class" to "${it.group}.${it.name}.$pluginFile",
+                    )
+                )
+                duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+                from(
+                    includes.map { f ->
+                        if (f.isDirectory) it else project.zipTree(f)
+                    }
+                )
             }
         }
     }

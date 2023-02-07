@@ -8,8 +8,6 @@ val kspVersion: String by project
 plugins {
     kotlin("jvm")
     java
-//    `kotlin-dsl`
-//    id("org.gradle.kotlin.kotlin-dsl")
     id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
     id("org.jetbrains.dokka") version "1.7.20"
     id("java-gradle-plugin")
@@ -49,12 +47,6 @@ tasks {
             jvmTarget = "17"
         }
         dependsOn("ktlintFormat")
-    }
-    test {
-        useJUnitPlatform()
-        testLogging {
-            events("passed", "skipped", "failed")
-        }
     }
 }
 
