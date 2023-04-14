@@ -45,7 +45,6 @@ repositories {
 
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-script-runtime:$kotlinVersion")
-//    implementation("com.github.Kotlin-DI:common:$commonVersion")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion")
     implementation("com.google.devtools.ksp:symbol-processing-gradle-plugin:$kotlinVersion-$kspVersion")
     implementation("org.jetbrains.kotlin:kotlin-serialization:$kotlinVersion")

@@ -13,7 +13,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 open class DependencyPlugin : Plugin<Project> {
 
     private val commonVersion: String = "0.1.7"
-    private val processorVersion: String = "0.07"
+    private val processorVersion: String = "0.0.6"
 
     private val imports = mutableListOf<String>()
     private val includes = mutableListOf<Dependency>()
