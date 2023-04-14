@@ -13,10 +13,26 @@ plugins {
     id("java-gradle-plugin")
     id("maven-publish")
     id("com.gradle.plugin-publish") version "1.1.0"
+    id("me.qoomon.git-versioning") version "6.3.0"
 }
 
 group = "com.github.Kotlin-DI"
-version = "0.0.2"
+version = "0.0.0-SNAPSHOT"
+gitVersioning.apply {
+    refs {
+        branch(".+") {
+            version = "\${ref}-SNAPSHOT"
+        }
+        tag("v(?<version>.*)") {
+            version = "\${ref.version}"
+        }
+    }
+
+    // optional fallback configuration in case of no matching ref configuration
+    rev {
+        version = "\${commit}"
+    }
+}
 
 repositories {
     gradlePluginPortal()
@@ -68,7 +84,7 @@ publishing {
 
 gradlePlugin {
     website.set("https://Kotlin-DI.github.io")
-    vcsUrl.set("https://github.com/Kotlin-DI/gradle-plugin.git")
+    vcsUrl.set("https://github.com/Kotlin-DI/gradlePlugin.git")
 
     plugins {
         create("plugin") {
