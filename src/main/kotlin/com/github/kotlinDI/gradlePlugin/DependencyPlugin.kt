@@ -19,13 +19,13 @@ open class DependencyPlugin : Plugin<Project> {
     private val includes = mutableListOf<Dependency>()
     override fun apply(project: Project) {
         val config = project.extensions.create(
-            "kotlin_di",
+            "kotlinDI",
             Extension::class.java
         )
 
         project.plugins.apply("com.google.devtools.ksp")
-        project.dependencies.add("implementation", "com.github.Kotlin-DI:common:$commonVersion")
-        project.dependencies.add("ksp", "com.github.Kotlin-DI:annotationProcessor:$processorVersion")
+        project.dependencies.add("implementation", "com.github.Kotlin-DI:common:${config.common.getOrElse(commonVersion)}")
+        project.dependencies.add("ksp", "com.github.Kotlin-DI:annotationProcessor:${config.processor.getOrElse(processorVersion)}")
 
         project.extensions.extraProperties.set(
             "imports",
