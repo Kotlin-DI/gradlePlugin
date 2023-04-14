@@ -68,7 +68,7 @@ publishing {
 
 gradlePlugin {
     website.set("https://Kotlin-DI.github.io")
-    vcsUrl.set("https://github.com/Kotlin-DI/gradle-plugin.git")
+    vcsUrl.set("https://github.com/Kotlin-DI/gradlePlugin.git")
 
     plugins {
         create("plugin") {
