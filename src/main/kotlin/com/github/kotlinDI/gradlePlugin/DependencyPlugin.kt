@@ -1,4 +1,4 @@
-package com.github.kotlin_di.gradle_plugin
+package com.github.kotlinDI.gradlePlugin
 
 import com.google.devtools.ksp.gradle.KspExtension
 import org.gradle.api.Plugin
@@ -12,7 +12,8 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmProjectExtension
 
 open class DependencyPlugin : Plugin<Project> {
 
-    private val commonVersion: String = "0.1.4"
+    private val commonVersion: String = "0.1.7"
+    private val processorVersion: String = "0.07"
 
     private val imports = mutableListOf<String>()
     private val includes = mutableListOf<Dependency>()
@@ -23,8 +24,8 @@ open class DependencyPlugin : Plugin<Project> {
         )
 
         project.plugins.apply("com.google.devtools.ksp")
-        project.dependencies.add("implementation", "com.github.kotlin_di:common:develop-SNAPSHOT")
-        project.dependencies.add("ksp", "com.github.kotlin_di:annotation-processor:develop-SNAPSHOT")
+        project.dependencies.add("implementation", "com.github.Kotlin-DI:common:$commonVersion")
+        project.dependencies.add("ksp", "com.github.Kotlin-DI:annotationProcessor:$processorVersion")
 
         project.extensions.extraProperties.set(
             "imports",
@@ -87,7 +88,7 @@ open class DependencyPlugin : Plugin<Project> {
                         "Dependencies" to (imports).fold("") { acc, s ->
                             "$acc$s;"
                         },
-                        "Main-Class" to "${it.group}.${it.name}.$pluginFile",
+                        "Main-Class" to "${it.group}.${it.name}.$pluginFile"
                     )
                 )
                 duplicatesStrategy = DuplicatesStrategy.EXCLUDE

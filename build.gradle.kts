@@ -8,14 +8,14 @@ val kspVersion: String by project
 plugins {
     kotlin("jvm")
     java
-    id("org.jlleitschuh.gradle.ktlint") version "11.0.0"
-    id("org.jetbrains.dokka") version "1.7.20"
+    id("org.jlleitschuh.gradle.ktlint") version "11.3.1"
+    id("org.jetbrains.dokka")
     id("java-gradle-plugin")
     id("maven-publish")
-    id("com.gradle.plugin-publish") version "1.0.0"
+    id("com.gradle.plugin-publish") version "1.1.0"
 }
 
-group = "io.github.Kotlin-DI"
+group = "com.github.Kotlin-DI"
 version = "0.0.2"
 
 repositories {
@@ -37,7 +37,8 @@ dependencies {
 }
 
 ktlint {
-    disabledRules.set(setOf("no-wildcard-imports"))
+    version.set("0.48.2")
+    outputToConsole.set(true)
 }
 
 tasks {
@@ -65,20 +66,17 @@ publishing {
     }
 }
 
-pluginBundle {
-    website = "https://Kotlin-DI.github.io"
-    vcsUrl = "https://github.com/Kotlin-DI/gradle-plugin.git"
-    tags = listOf("dependency-injection", "annotation-processing")
-}
-
 gradlePlugin {
+    website.set("https://Kotlin-DI.github.io")
+    vcsUrl.set("https://github.com/Kotlin-DI/gradle-plugin.git")
 
     plugins {
         create("plugin") {
-            id = "io.github.Kotlin-DI.plugin"
+            id = "$group.${project.name}"
             displayName = "Kotlin DI plugin"
             description = "Applies all of the required libraries"
-            implementationClass = "com.github.kotlin_di.gradle_plugin.DependencyPlugin"
+            tags.set(listOf("dependency-injection", "annotation-processing"))
+            implementationClass = "com.github.kotlinDI.gradlePlugin.DependencyPlugin"
         }
     }
 }

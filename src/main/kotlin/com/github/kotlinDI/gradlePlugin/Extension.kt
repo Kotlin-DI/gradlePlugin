@@ -1,4 +1,4 @@
-package com.github.kotlin_di.gradle_plugin
+package com.github.kotlinDI.gradlePlugin
 
 import org.gradle.api.provider.Property
 

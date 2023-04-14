@@ -1,4 +1,4 @@
-rootProject.name = "gradle-plugin"
+rootProject.name = "gradlePlugin"
 pluginManagement {
     repositories {
         google()
@@ -12,6 +12,6 @@ pluginManagement {
     val kotlinVersion: String by settings
     plugins {
         kotlin("jvm") version kotlinVersion
-//        id("org.gradle.kotlin.kotlin-dsl") version "4.0.2"
+        id("org.jetbrains.dokka") version kotlinVersion
     }
 }
